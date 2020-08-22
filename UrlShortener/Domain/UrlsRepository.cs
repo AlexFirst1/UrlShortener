@@ -33,6 +33,7 @@ namespace UrlShortener.Domain
                 context.Entry(entity).State = EntityState.Modified;
 
             context.SaveChanges();
+
             return entity.Id;
         }
 
@@ -60,6 +61,7 @@ namespace UrlShortener.Domain
                 }
                 return shortUrl;
             }
+
             return "";
         }
 
@@ -84,6 +86,7 @@ namespace UrlShortener.Domain
             {
                 throw new Exception($"Ошибка: {e}");
             }
+
             return "";
 
         }
