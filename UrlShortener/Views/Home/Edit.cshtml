@@ -1,0 +1,83 @@
+﻿@model UrlShortener.Domain.UrlModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Редактировать</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Введите данные:</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Surl, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Surl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Surl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+
+
+                <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+                <script>
+                    function shortUrl() {
+                        var longUrl = $('#shortenerInputText').val();
+                        $.post('/Home/ShortUrl', { Url: longUrl },
+                        function (data) {
+                            $('#result').html("http://" + data);
+
+                        });
+                    }
+                </script>
+
+                <h3>Сократите ссылку, а затем скопируйте в базу данных:</h3>
+                <input class="IXTYPID-x-a IXTYPID-b-a IXTYPID-d-b IXTYPID-r-b" type="text" id="shortenerInputText" tabindex="1">
+
+                <input type="button" id="shortenerSubmitButton" onclick="shortUrl()" value="Сократить" />
+                <h4><b><span id="result" style="color:crimson;padding-left: 0.7cm"></span></b></h4>
+
+
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Возврат на главную", "Index")
+</div>
+

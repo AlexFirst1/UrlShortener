@@ -1,0 +1,26 @@
+﻿@using UrlShortener.Domain
+@model IQueryable<UrlShortener.Domain.UrlModel>
+@{
+    ViewBag.Title = "Shortener";
+}
+
+<div class=" text-center">
+    <a asp-controller="Home" asp-action="Edit">Новая запись</a>
+</div>
+<div class=" text-center">
+    @foreach (var entity in Model)
+    {
+        <div>
+            @entity.Surl
+            |
+            <a asp-controller="Home" asp-action="Edit" asp-route-id="@entity.Id">Редактировать</a>
+            |
+            <form method="post" asp-controller="Home" asp-action="Delete">
+                <input type="hidden" value="@entity.Id" name="Id" />
+                <input type="submit" value="Удалить"/>
+            </form>
+        </div>
+     }
+</div>
+
+
